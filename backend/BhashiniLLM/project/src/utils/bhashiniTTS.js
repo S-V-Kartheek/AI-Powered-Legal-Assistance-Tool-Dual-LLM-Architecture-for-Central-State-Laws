@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 
 const BHASHINI_PIPELINE_URL = 'https://dhruva-api.bhashini.gov.in/services/inference/pipeline';
-const INFERENCE_API_KEY = process.env.INFERENCEAPIKEY || 'W5WdUovCGx87wGCvu4Wcw7lFlk90_gUDV8RXpVu3vr3HuylR2BrrIwQSEGz0l9Lk';
+const INFERENCE_API_KEY = process.env.INFERENCEAPIKEY;
 
 const BHASHINI_HEADERS = {
   'Content-Type': 'application/json',

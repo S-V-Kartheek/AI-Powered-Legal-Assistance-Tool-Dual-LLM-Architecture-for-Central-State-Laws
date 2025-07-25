@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 
-const API_KEY = process.env.INFERENCEAPIKEY || 'W5WdUovCGx87wGCvu4Wcw7lFlk90_gUDV8RXpVu3vr3HuylR2BrrIwQSEGz0l9Lk';
+const API_KEY = process.env.INFERENCEAPIKEY;
 const HEADERS = {
   'Content-Type': 'application/json',
   'Authorization': API_KEY
