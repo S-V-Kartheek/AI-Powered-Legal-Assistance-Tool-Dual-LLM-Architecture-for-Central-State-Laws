@@ -8,7 +8,7 @@ function HealthReportPage() {
 
   // Assuming a default user ID for now
   const userId = 1; 
-  const backendUrl = 'http://localhost:5001'; // Updated port to 5001
+  const backendUrl = import.meta.env.VITE_PROJECT_API_URL;
 
   useEffect(() => {
     const fetchReport = async () => {

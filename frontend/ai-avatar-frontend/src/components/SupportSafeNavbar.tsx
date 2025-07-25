@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
+/// <reference types="vite/client" />
 // Type definitions for navigation items
 interface NavItem {
   name: string;
@@ -21,34 +22,40 @@ function SupportSafeNavbar(props) {
   const isActive = (href: string) => location.pathname === href;
 
   // Navigation items with proper links
+  const chatUrl = import.meta.env.VITE_CHAT_API_URL;
+  const projectUrl = import.meta.env.VITE_PROJECT_API_URL;
+  const lawUrl = import.meta.env.VITE_LAW_API_URL;
+  const stegoUrl = import.meta.env.VITE_STEGO_API_URL;
+  const bhashiniUrl = import.meta.env.VITE_BHASHINI_API_URL;
+  const loginUrl = import.meta.env.VITE_LOGIN_API_URL;
   let navItems: NavItem[] = [
-    { name: 'Home', url: 'http://localhost:5174', icon: '🏠', external: true },
-    { name: 'Community Help', url: 'http://localhost:5003', icon: '💬', internal: true },
-    { name: 'Know My Case', url: 'http://localhost:8000', icon: '⚖️', external: true },
-    { name: 'Police service portal', url: 'http://localhost:5176', icon: '📊', external: true },
-    { name: 'Stego Bot', url: 'http://localhost:3002', icon: '🔐', external: true },
-    { name: 'Therapy Bot', url: 'http://localhost:5174/therapy-bot', icon: '🧠', internal: true },
-    { name: 'Your Advisor (Local Language)', url: 'http://localhost:9000/', icon: '🌍', internal: true },
+    { name: 'Home', url: '/', icon: '🏠', external: false },
+    { name: 'Community Help', url: chatUrl, icon: '💬', external: true },
+    { name: 'Know My Case', url: lawUrl, icon: '⚖️', external: true },
+    { name: 'Police service portal', url: projectUrl, icon: '📊', external: true },
+    { name: 'Stego Bot', url: stegoUrl, icon: '🔐', external: true },
+    { name: 'Therapy Bot', url: '/therapy-bot', icon: '🧠', external: false },
+    { name: 'Your Advisor (Local Language)', url: bhashiniUrl, icon: '🌍', external: true },
   ];
   if (user && user.role === 'police') {
     navItems = [
-      { name: 'Home', url: 'http://localhost:5174', icon: '🏠', external: true }, // always main home
-      { name: 'Help from Higher Official', url: 'http://localhost:5003', icon: '💬', external: true },
-      { name: 'FIR Assistant', url: 'http://localhost:8000', icon: '⚖️', external: true },
-      { name: 'Police Assistant', url: 'http://localhost:5176', icon: '📊', external: true },
-      { name: 'Send Evidence', url: 'http://localhost:3002', icon: '🔐', external: true },
-      { name: 'Therapy Bot', url: 'http://localhost:5174/therapy-bot', icon: '🧠', internal: true },
-      { name: 'Your Advisor (Local Language)', url: 'http://localhost:9000/', icon: '🌍', external: true },
+      { name: 'Home', url: '/', icon: '🏠', external: false },
+      { name: 'Help from Higher Official', url: chatUrl, icon: '💬', external: true },
+      { name: 'FIR Assistant', url: lawUrl, icon: '⚖️', external: true },
+      { name: 'Police Assistant', url: projectUrl, icon: '📊', external: true },
+      { name: 'Send Evidence', url: stegoUrl, icon: '🔐', external: true },
+      { name: 'Therapy Bot', url: '/therapy-bot', icon: '🧠', external: false },
+      { name: 'Your Advisor (Local Language)', url: bhashiniUrl, icon: '🌍', external: true },
     ];
   }
 
   // External services (if needed)
   const externalServices = [
-    { name: 'AI Avatar Backend', url: 'http://localhost:3000', icon: '🤖' },
-    { name: 'CHAT Service', url: 'http://localhost:5003', icon: '💭' },
-    { name: 'Stego Bot Service', url: 'http://localhost:3002', icon: '🔐' },
-    { name: 'Law Bot Service', url: 'http://localhost:8000', icon: '⚖️' },
-    { name: 'Your Advisor (Local Language)', url: 'http://localhost:9000/', icon: '🧠'},
+    { name: 'AI Avatar Backend', url: loginUrl, icon: '🤖' },
+    { name: 'CHAT Service', url: chatUrl, icon: '💭' },
+    { name: 'Stego Bot Service', url: stegoUrl, icon: '🔐' },
+    { name: 'Law Bot Service', url: lawUrl, icon: '⚖️' },
+    { name: 'Your Advisor (Local Language)', url: bhashiniUrl, icon: '🧠'},
   ];
 
   const handleLogout = () => {
@@ -67,7 +74,7 @@ function SupportSafeNavbar(props) {
       <div className="supportsafe-nav-brand">
         <Link to="/" className="focus:outline-none" aria-label="SupportSafe Home">
           <span className="text-xl font-bold">
-            Support<span style={{ color: '#3b82f6' }}>Safe</span>
+            KavalAi-<span style={{ color: '#3b82f6' }}>DLLM</span>
           </span>
         </Link>
       </div>

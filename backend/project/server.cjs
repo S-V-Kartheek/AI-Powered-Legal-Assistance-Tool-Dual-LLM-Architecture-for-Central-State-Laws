@@ -2,9 +2,14 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const app = express();
+const cors = require('cors');
 const DATA_DIR = path.join(__dirname, 'data');
 if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR);
 app.use(express.json());
+app.use(cors({
+  origin: '*', // For demo. In production, use: ["https://your-vercel-app.vercel.app"]
+  credentials: true
+}));
 
 const COMPLAINTS_FILE = path.join(__dirname, 'data', 'complaints.json');
 if (!fs.existsSync(COMPLAINTS_FILE)) fs.writeFileSync(COMPLAINTS_FILE, '[]');

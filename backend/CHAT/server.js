@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const http = require('http').createServer(app);
+const cors = require('cors');
 
 // Add CORS middleware for iframe access
 app.use((req, res, next) => {
@@ -14,6 +15,10 @@ app.use((req, res, next) => {
     next();
   }
 });
+app.use(cors({
+  origin: '*', // For demo. In production, use: ["https://your-vercel-app.vercel.app"]
+  credentials: true
+}));
 const io = require('socket.io')(http, {
     cors: {
         origin: "*",  // Allow all origins

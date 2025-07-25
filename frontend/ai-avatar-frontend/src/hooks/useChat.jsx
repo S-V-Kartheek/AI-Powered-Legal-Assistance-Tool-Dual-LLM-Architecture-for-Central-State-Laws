@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
-const backendUrl = "http://localhost:3002/api";
+const backendUrl = import.meta.env.VITE_STEGO_API_URL;
 
 const ChatContext = createContext();
 
@@ -62,7 +62,7 @@ export const useChat = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('http://localhost:3002/api/chat', {
+      const response = await fetch(`${backendUrl}/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
