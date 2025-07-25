@@ -17,7 +17,7 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 5001;
-const GOOGLE_API_KEY = 'AIzaSyCMQdtlmxPVViklPJ7zLVFI9ZVDlq4oZsI';
+const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
 const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GOOGLE_API_KEY}`;
 
 app.use(cors());
@@ -72,7 +72,7 @@ app.post('/api/tts', async (req, res) => {
     }
     // Save audio to file in the fixed path
     const filename = `audio_${Date.now()}.wav`;
-    const audioDir = 'C:/Users/venka/Downloads/Haven/backend/BhashiniLLM/project/audio';
+  const audioDir = path.join(__dirname, 'audio');
     if (!fs.existsSync(audioDir)) {
       fs.mkdirSync(audioDir, { recursive: true });
     }
@@ -86,7 +86,7 @@ app.post('/api/tts', async (req, res) => {
 });
 
 // Serve audio files statically
-app.use('/audio', express.static('C:/Users/venka/Downloads/Haven/backend/BhashiniLLM/project/audio'));
+app.use('/audio', express.static(path.join(__dirname, 'audio')));
 
 app.listen(PORT, () => {
   console.log(`LLM/TTS proxy server running on port ${PORT}`);
