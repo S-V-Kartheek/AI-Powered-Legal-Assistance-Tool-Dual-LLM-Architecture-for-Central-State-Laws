@@ -7,7 +7,7 @@ const path = require('path');
 const StegCloak = require('stegcloak');
 const cors = require('cors');
 const app = express();
-const port = 3002;
+const port = process.env.PORT || 3002;
 
 app.use(cors()); // Add this line to enable CORS for all origins
 
