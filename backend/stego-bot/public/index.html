@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Steganography Bot - SupportSafe</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #0f2027 0%, #2c5364 100%);
+      color: #1a202c;
+      line-height: 1.6;
+    }
+
+    /* Navbar Styles */
+    .navbar {
+      background: rgba(20, 30, 48, 0.98);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 0.1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 20px rgba(44, 83, 100, 0.08);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 0.1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1rem;
+      font-weight: 800;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 1px;
+    }
+
+    .nav-brand:hover {
+      color: #38b2ac;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.2rem;
+      align-items: center;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #cbd5e1;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.15rem 0.5rem;
+      border-radius: 8px;
+      transition: all 0.3s cubic-bezier(.4,0,.2,1);
+      font-size: 0.92rem;
+    }
+
+    .nav-link:hover {
+      color: #38b2ac;
+      background: rgba(56, 178, 172, 0.08);
+    }
+
+    .nav-link.active {
+      color: #38b2ac;
+      background: rgba(56, 178, 172, 0.12);
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.1rem;
+      cursor: pointer;
+      color: #cbd5e1;
+    }
+
+    .mobile-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: rgba(20, 30, 48, 0.98);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 1rem;
+      box-shadow: 0 4px 20px rgba(44, 83, 100, 0.08);
+    }
+
+    .mobile-menu.active {
+      display: block;
+    }
+
+    .mobile-nav-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .mobile-nav-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #cbd5e1;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      transition: all 0.3s cubic-bezier(.4,0,.2,1);
+    }
+
+    .mobile-nav-link:hover {
+      color: #38b2ac;
+      background: rgba(56, 178, 172, 0.08);
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .nav-container {
+        padding: 0 1rem;
+      }
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 3rem;
+      color: #fff;
+    }
+
+    .header h1 {
+      font-size: 3rem;
+      font-weight: 900;
+      margin-bottom: 1rem;
+      background: linear-gradient(45deg, #38b2ac, #fff 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .header p {
+      font-size: 1.2rem;
+      opacity: 0.95;
+      font-weight: 400;
+      color: #e0e7ef;
+    }
+
+    .main-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(10px);
+      border-radius: 24px;
+      padding: 2.5rem;
+      box-shadow: 0 10px 32px rgba(44, 83, 100, 0.13);
+      border: 1px solid rgba(44, 83, 100, 0.08);
+      transition: all 0.3s cubic-bezier(.4,0,.2,1);
+    }
+
+    .card:hover {
+      transform: translateY(-6px) scale(1.01);
+      box-shadow: 0 18px 48px rgba(44, 83, 100, 0.18);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .card-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.1rem;
+      font-weight: 700;
+      box-shadow: 0 2px 8px rgba(44, 83, 100, 0.10);
+    }
+
+    .encode-icon {
+      background: linear-gradient(135deg, #2563eb, #38b2ac);
+      color: white;
+    }
+
+    .decode-icon {
+      background: linear-gradient(135deg, #38b2ac, #2563eb);
+      color: white;
+    }
+
+    .card-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #1a202c;
+    }
+
+    .card-subtitle {
+      font-size: 0.98rem;
+      color: #64748b;
+      margin-top: 0.25rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+      color: #2563eb;
+      font-size: 1rem;
+      letter-spacing: 0.2px;
+    }
+
+    .file-input-wrapper {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+    }
+
+    .file-input-wrapper input[type="file"] {
+      position: absolute;
+      left: -9999px;
+    }
+
+    .file-input-label {
+      display: block;
+      padding: 1rem;
+      background: #f1f5f9;
+      border: 2px dashed #38b2ac;
+      border-radius: 14px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(.4,0,.2,1);
+      font-weight: 600;
+      color: #2563eb;
+    }
+
+    .file-input-label:hover {
+      border-color: #2563eb;
+      background: #e0f2fe;
+      color: #2563eb;
+    }
+
+    .file-input-label.has-file {
+      border-color: #059669;
+      background: #f0fdf4;
+      color: #059669;
+    }
+
+    textarea {
+      width: 100%;
+      padding: 1rem;
+      border: 2px solid #e0e7ef;
+      border-radius: 14px;
+      font-family: inherit;
+      font-size: 1rem;
+      resize: vertical;
+      min-height: 100px;
+      transition: all 0.3s cubic-bezier(.4,0,.2,1);
+      background: #f1f5f9;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: #38b2ac;
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(56, 178, 172, 0.10);
+    }
+
+    .btn {
+      width: 100%;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(.4,0,.2,1);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 8px rgba(44, 83, 100, 0.08);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #2563eb, #38b2ac);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #174ea6, #319795);
+      transform: translateY(-2px) scale(1.01);
+      box-shadow: 0 10px 25px rgba(56, 178, 172, 0.18);
+    }
+
+    .btn-success {
+      background: linear-gradient(135deg, #38b2ac, #2563eb);
+      color: white;
+    }
+
+    .btn-success:hover {
+      background: linear-gradient(135deg, #319795, #174ea6);
+      transform: translateY(-2px) scale(1.01);
+      box-shadow: 0 10px 25px rgba(56, 178, 172, 0.18);
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .status {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 14px;
+      font-weight: 600;
+      display: none;
+      font-size: 1rem;
+    }
+
+    .status.success {
+      background: #f0fdf4;
+      color: #059669;
+      border: 1px solid #bbf7d0;
+    }
+
+    .status.error {
+      background: #fef2f2;
+      color: #dc2626;
+      border: 1px solid #fecaca;
+    }
+
+    .status.info {
+      background: #e0f2fe;
+      color: #2563eb;
+      border: 1px solid #bae6fd;
+    }
+
+    .image-preview {
+      margin-top: 1rem;
+      text-align: center;
+    }
+
+    .preview-image {
+      max-width: 100%;
+      max-height: 200px;
+      border-radius: 14px;
+      box-shadow: 0 4px 12px rgba(44, 83, 100, 0.10);
+      display: none;
+    }
+
+    .decoded-message {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: #f1f5f9;
+      border: 1px solid #e0e7ef;
+      border-radius: 14px;
+      font-weight: 600;
+      color: #2563eb;
+      word-break: break-word;
+      font-size: 1.05rem;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .feature {
+      background: rgba(44, 83, 100, 0.18);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+      color: #fff;
+      border: 1px solid rgba(56, 178, 172, 0.18);
+      box-shadow: 0 2px 8px rgba(44, 83, 100, 0.10);
+    }
+
+    .feature-icon {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .feature h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .feature p {
+      font-size: 0.98rem;
+      opacity: 0.95;
+    }
+
+    @media (max-width: 768px) {
+      .main-content {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .header h1 {
+        font-size: 2rem;
+      }
+
+      .container {
+        padding: 1rem;
+      }
+
+      .card {
+        padding: 1.5rem;
+      }
+    }
+
+    .loading {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(56, 178, 172, 0.18);
+      border-radius: 50%;
+      border-top-color: #38b2ac;
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="http://localhost:5174" class="nav-brand">
+        🏠 <span style="font-weight:700;">Support<span style="color:#3b82f6;">Safe</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="http://localhost:5174" class="nav-link"><span>🏠</span> <span>Home</span></a>
+        <a href="http://localhost:5003" class="nav-link"><span>💬</span> <span>Community Help</span></a>
+        <a href="http://localhost:8000" class="nav-link"><span>⚖️</span> <span>FIR Assistant</span></a>
+        <a href="http://localhost:5176" class="nav-link"><span>📊</span> <span>Police portal</span></a>
+        <a href="http://localhost:3002" class="nav-link active"><span>🔐</span> <span>Send Evidence</span></a>
+        <a href="http://localhost:5174/therapy-bot" class="nav-link"><span>🧠</span> <span>Therapy Bot</span></a>
+        <a href="http://localhost:9000/" class="nav-link"><span>🌍</span> <span>Multilingual Assistance</span></a>
+      </div>
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <div class="mobile-nav-links">
+        <a href="http://localhost:5174" class="mobile-nav-link"><span>🏠</span> <span>Home</span></a>
+        <a href="http://localhost:5003" class="mobile-nav-link"><span>💬</span> <span>Community Help</span></a>
+        <a href="http://localhost:8000" class="mobile-nav-link"><span>⚖️</span> <span>Know My Case</span></a>
+        <a href="http://localhost:5176" class="mobile-nav-link"><span>📊</span> <span>Police service portal</span></a>
+        <a href="http://localhost:5174/therapy-bot" class="mobile-nav-link"><span>🧠</span> <span>Therapy Bot</span></a>
+        <a href="http://localhost:9000/" class="mobile-nav-link"><span>🌍</span> <span>Multilingual Assistance</span></a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <header class="header">
+      <h1>🔐 Steganography Bot</h1>
+      <p>Hide and reveal secret messages within images using advanced steganography techniques</p>
+    </header>
+
+    <main class="main-content">
+      <section class="card">
+        <div class="card-header">
+          <div class="card-icon encode-icon">🔒</div>
+          <div>
+            <h2 class="card-title">Encode Message</h2>
+            <p class="card-subtitle">Hide your secret message in a PNG image</p>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="encodeImageInput">Select PNG Image</label>
+          <div class="file-input-wrapper">
+            <input id="encodeImageInput" type="file" accept="image/png">
+            <label for="encodeImageInput" class="file-input-label" id="encodeFileLabel">
+              📁 Choose a PNG image file
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="secretMessage">Secret Message</label>
+          <textarea 
+            id="secretMessage" 
+            placeholder="Enter your secret message here..."
+            rows="4"
+          ></textarea>
+        </div>
+
+        <button id="encodeBtn" class="btn btn-primary">
+          <span class="btn-text">🔒 Encode & Download</span>
+          <span class="loading" style="display: none;"></span>
+        </button>
+
+        <div class="image-preview">
+          <img id="previewImage" class="preview-image" src="#" alt="Preview">
+        </div>
+
+        <div id="status" class="status"></div>
+      </section>
+
+      <section class="card">
+        <div class="card-header">
+          <div class="card-icon decode-icon">🔍</div>
+          <div>
+            <h2 class="card-title">Decode Message</h2>
+            <p class="card-subtitle">Extract hidden messages from encoded images</p>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="decodeImageInput">Select PNG Image</label>
+          <div class="file-input-wrapper">
+            <input id="decodeImageInput" type="file" accept="image/png">
+            <label for="decodeImageInput" class="file-input-label" id="decodeFileLabel">
+              📁 Choose a PNG image file
+            </label>
+          </div>
+        </div>
+
+        <button id="decodeBtn" class="btn btn-success">
+          <span class="btn-text">🔍 Decode Message</span>
+          <span class="loading" style="display: none;"></span>
+        </button>
+
+        <div id="decodedMessage" class="decoded-message" style="display: none;"></div>
+        <div id="status-decode" class="status"></div>
+      </section>
+    </main>
+
+    <div class="features">
+      <div class="feature">
+        <div class="feature-icon">🛡️</div>
+        <h3>Secure</h3>
+        <p>Messages are hidden using advanced steganography techniques</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">⚡</div>
+        <h3>Fast</h3>
+        <p>Quick encoding and decoding with minimal image quality loss</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🔒</div>
+        <h3>Private</h3>
+        <p>Your messages remain completely hidden from prying eyes</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="lib/steg.min.js"></script>
+  <script>
+    // Mobile menu toggle function
+    function toggleMobileMenu() {
+      const mobileMenu = document.getElementById('mobileMenu');
+      mobileMenu.classList.toggle('active');
+    }
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(event) {
+      const mobileMenu = document.getElementById('mobileMenu');
+      const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+      
+      if (!mobileMenu.contains(event.target) && !mobileMenuBtn.contains(event.target)) {
+        mobileMenu.classList.remove('active');
+      }
+    });
+
+    // File input handlers
+    function setupFileInput(inputId, labelId) {
+      const input = document.getElementById(inputId);
+      const label = document.getElementById(labelId);
+      
+      input.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+          label.textContent = `📁 ${file.name}`;
+          label.classList.add('has-file');
+        } else {
+          label.textContent = '📁 Choose a PNG image file';
+          label.classList.remove('has-file');
+        }
+      });
+    }
+
+    setupFileInput('encodeImageInput', 'encodeFileLabel');
+    setupFileInput('decodeImageInput', 'decodeFileLabel');
+
+    // Show image preview
+    document.getElementById('encodeImageInput').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        const previewImage = document.getElementById('previewImage');
+        previewImage.src = event.target.result;
+        previewImage.style.display = 'block';
+      };
+      reader.readAsDataURL(file);
+    });
+
+    // Utility function to show status
+    function showStatus(elementId, message, type) {
+      const status = document.getElementById(elementId);
+      status.textContent = message;
+      status.className = `status ${type}`;
+      status.style.display = 'block';
+    }
+
+    // Utility function to show loading
+    function showLoading(btnId, isLoading) {
+      const btn = document.getElementById(btnId);
+      const btnText = btn.querySelector('.btn-text');
+      const loading = btn.querySelector('.loading');
+      
+      if (isLoading) {
+        btnText.style.display = 'none';
+        loading.style.display = 'inline-block';
+        btn.disabled = true;
+      } else {
+        btnText.style.display = 'inline';
+        loading.style.display = 'none';
+        btn.disabled = false;
+      }
+    }
+
+    // Encode and download
+    document.getElementById('encodeBtn').addEventListener('click', function() {
+      const fileInput = document.getElementById('encodeImageInput');
+      const message = document.getElementById('secretMessage').value.trim();
+      
+      if (!fileInput.files[0]) {
+        showStatus('status', 'Please select a PNG image to encode.', 'error');
+        return;
+      }
+      
+      if (!message) {
+        showStatus('status', 'Please enter a secret message.', 'error');
+        return;
+      }
+
+      showLoading('encodeBtn', true);
+      showStatus('status', 'Encoding message...', 'info');
+
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        steg.encode(event.target.result, message, function(encodedDataUrl) {
+          // Download the encoded image
+          const link = document.createElement('a');
+          link.href = encodedDataUrl;
+          link.download = 'encoded_message.png';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          
+          showStatus('status', '✅ Message encoded successfully! Image downloaded.', 'success');
+          showLoading('encodeBtn', false);
+        });
+      };
+      reader.readAsDataURL(fileInput.files[0]);
+    });
+
+    // Decode
+    document.getElementById('decodeBtn').addEventListener('click', function() {
+      const fileInput = document.getElementById('decodeImageInput');
+      const decodedMessageDiv = document.getElementById('decodedMessage');
+      
+      if (!fileInput.files[0]) {
+        showStatus('status-decode', 'Please select a PNG image to decode.', 'error');
+        return;
+      }
+
+      showLoading('decodeBtn', true);
+      showStatus('status-decode', 'Decoding message...', 'info');
+      decodedMessageDiv.style.display = 'none';
+
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        steg.decode(event.target.result, function(decodedMessage) {
+          if (decodedMessage) {
+            decodedMessageDiv.textContent = decodedMessage;
+            decodedMessageDiv.style.display = 'block';
+            showStatus('status-decode', '✅ Message decoded successfully!', 'success');
+          } else {
+            showStatus('status-decode', '❌ No hidden message found in this image.', 'error');
+          }
+          showLoading('decodeBtn', false);
+        });
+      };
+      reader.readAsDataURL(fileInput.files[0]);
+    });
+  </script>
+</body>
+</html> 

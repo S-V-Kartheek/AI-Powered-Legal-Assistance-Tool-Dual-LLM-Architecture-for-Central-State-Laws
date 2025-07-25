@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "concurrently": "^9.2.0"
+  },
+  "scripts": {
+    "start:all": "concurrently \"cd backend/ai-avatar-backend && npm start\" \"cd backend/CHAT && node server.js\" \"cd backend/stego-bot && node proxy.js\" \"cd backend/loginreq && node index.js\" \"cd backend/law && ..\\..\\haven-env\\Scripts\\activate && uvicorn main:app --reload\" \"cd frontend/ai-avatar-frontend && npm run dev\" \"cd backend/Project && npm run dev\""
+  }
+}
