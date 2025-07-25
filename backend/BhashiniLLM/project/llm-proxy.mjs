@@ -88,6 +88,18 @@ app.post('/api/tts', async (req, res) => {
 // Serve audio files statically
 app.use('/audio', express.static(path.join(__dirname, 'audio')));
 
+
+// Serve frontend build statically
+app.use(express.static(path.join(__dirname, 'dist')));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
+
+app.listen(PORT, () => {
+  console.log(`LLM/TTS proxy server running on port ${PORT}`);
+});
+// ... existing code ...
+
 app.listen(PORT, () => {
   console.log(`LLM/TTS proxy server running on port ${PORT}`);
 }); 
