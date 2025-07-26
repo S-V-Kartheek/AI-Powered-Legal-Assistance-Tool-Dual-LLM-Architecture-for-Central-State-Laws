@@ -28,19 +28,19 @@ if (!GOOGLE_API_KEY) {
 app.use(cors());
 app.use(bodyParser.json({ limit: '2mb' }));
 
-// Health check endpoint
-app.get('/', (req, res) => {
+// Health check for Render (API endpoint)
+app.get('/health', (req, res) => {
+  res.json({ status: 'healthy' });
+});
+
+// API health check endpoint
+app.get('/api/health', (req, res) => {
   res.json({ 
     status: 'ok', 
     message: 'BhashiniLLM backend is running!',
     timestamp: new Date().toISOString(),
     port: PORT
   });
-});
-
-// Health check for Render
-app.get('/health', (req, res) => {
-  res.json({ status: 'healthy' });
 });
 
 app.post('/llm', async (req, res) => {
