@@ -1,6 +1,7 @@
 # AI-Powered Legal Assistance Tool
 
 A comprehensive AI-powered platform featuring multiple specialized bots and services for legal assistance, therapy, multilingual support, and real-time communication.
+check out the https://ai-powered-legal-assistance-tool-du.vercel.app/
 
 ## 🌟 Features
 
