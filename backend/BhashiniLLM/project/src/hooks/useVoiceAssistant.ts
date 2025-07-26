@@ -182,7 +182,7 @@ export const useVoiceAssistant = () => {
           ttsServiceId,
           gender: 'female'
         });
-        const ttsRes = await fetch('http://localhost:5001/api/tts', {
+       const ttsRes = await fetch('/api/tts', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
