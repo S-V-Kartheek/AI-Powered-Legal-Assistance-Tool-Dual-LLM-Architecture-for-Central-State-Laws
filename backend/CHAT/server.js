@@ -80,6 +80,10 @@ const VULGAR_WORDS = [
 // Track user violations by socket ID
 const userViolations = {};
 
+// Track online users and typing status
+const onlineUsers = new Map();
+const typingUsers = new Set();
+
 function censorMessage(message) {
   let found = false;
   let censored = message;
@@ -135,11 +139,17 @@ io.on('connection', (socket) => {
     const userId = Object.keys(users)[Math.floor(Math.random() * Object.keys(users).length)];
     const user = users[userId];
     
+    // Add to online users
+    onlineUsers.set(socket.id, { userId, ...user });
+    
     // Send user info to the client
     socket.emit('user assigned', { userId, ...user });
     
     // Broadcast new user to all clients
     io.emit('user joined', { userId, ...user });
+    
+    // Broadcast updated online users list
+    io.emit('online users update', Array.from(onlineUsers.values()));
 
     // Handle new messages
     socket.on('chat message', (msg) => {
@@ -170,10 +180,42 @@ io.on('connection', (socket) => {
         console.log('Message broadcasted to all clients');
     });
 
+    // Handle typing events
+    socket.on('typing', (data) => {
+        const user = onlineUsers.get(socket.id);
+        if (user) {
+            io.emit('user typing', { 
+                userId: user.userId, 
+                username: user.username, 
+                isTyping: data.isTyping 
+            });
+        }
+    });
+
+    // Handle reactions
+    socket.on('reaction', (data) => {
+        io.emit('reaction update', data);
+    });
+
+    // Handle message editing
+    socket.on('edit message', (data) => {
+        io.emit('message edited', data);
+    });
+
+    // Handle message deletion
+    socket.on('delete message', (data) => {
+        io.emit('message deleted', data);
+    });
+
     // Handle disconnection
     socket.on('disconnect', () => {
         console.log('User disconnected. Socket ID:', socket.id);
+        
+        // Remove from online users
+        onlineUsers.delete(socket.id);
+        
         io.emit('user left', { userId, ...user });
+        io.emit('online users update', Array.from(onlineUsers.values()));
     });
 
     // Handle connection errors
