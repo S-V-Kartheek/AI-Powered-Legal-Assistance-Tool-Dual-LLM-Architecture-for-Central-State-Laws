@@ -12,19 +12,95 @@
     <nav class="navbar">
       <a href="http://localhost:5174" class="navbar-brand">KavalAi-<span class="navbar-brand-blue">DLLM</span></a>
       <div class="navbar-links">
-        <a href="http://localhost:5174" class="navbar-link">🏠 Home</a>
-        <a href="http://localhost:8000" class="navbar-link" target="_blank">⚖️ Law Bot</a>
-        <a href="http://localhost:5176" class="navbar-link">📊 Police Portal</a>
-        <a href="http://localhost:3002" class="navbar-link" target="_blank">🔐 Stego Bot</a>
+        <a href="https://ai-powered-legal-assistance-tool-du.vercel.app/" class="navbar-link">🏠 Home</a>
+        <a href="https://law-backend-sfjs.onrender.com/" class="navbar-link" target="_blank">⚖️ Law Bot</a>
+        <a href="https://project-backend-p73p.onrender.com/" class="navbar-link">📊 Police Portal</a>
+        <a href="https://ai-powered-legal-assistance-tool-dual-70lt.onrender.com/" class="navbar-link" target="_blank">🔐 Stego Bot</a>
         <a href="http://localhost:5174/therapy-bot" class="navbar-link">🧠 Therapy Bot</a>
-        <a href="http://localhost:9000/" class="navbar-link">🌍 Multilingual Assistance</a>
+        <a href="https://bhashinillm-backend.onrender.com/" class="navbar-link">🌍 Multilingual Assistance</a>
       </div>
     </nav>
     <div class="chat-container">
         <div class="chat-header">
-            <h1>Chat Room</h1>
+            <div class="header-content">
+                <div class="header-left">
+                    <h1>Chat Room</h1>
+                    <div class="online-users">
+                        <span class="online-count">0 online</span>
+                        <div class="user-avatars" id="online-users-list"></div>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="share-section">
+                        <span class="share-label">Share this room:</span>
+                        <div class="share-link-container">
+                            <input type="text" id="share-link" readonly value="" class="share-link-input">
+                            <button id="copy-link-btn" class="copy-btn">📋 Copy</button>
+                        </div>
+                    </div>
+                    <div class="header-controls">
+                        <button id="search-btn" class="control-btn" title="Search messages">🔍</button>
+                        <button id="stats-btn" class="control-btn" title="Chat statistics">📊</button>
+                        <button id="sound-toggle" class="control-btn" title="Toggle sounds">🔊</button>
+                        <button id="theme-toggle" class="theme-btn">🌙</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Search Modal -->
+        <div id="search-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Search Messages</h3>
+                    <button class="close-btn" id="close-search">×</button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" id="search-input" placeholder="Search messages..." class="search-input">
+                    <div id="search-results" class="search-results"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Stats Modal -->
+        <div id="stats-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Chat Statistics</h3>
+                    <button class="close-btn" id="close-stats">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number" id="total-messages">0</div>
+                            <div class="stat-label">Total Messages</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="total-users">0</div>
+                            <div class="stat-label">Active Users</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="total-words">0</div>
+                            <div class="stat-label">Words Sent</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="total-images">0</div>
+                            <div class="stat-label">Images Shared</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="messages" id="messages"></div>
+        <div class="typing-indicator" id="typing-indicator" style="display: none;">
+            <div class="typing-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <span class="typing-text">Someone is typing...</span>
+        </div>
+        <div id="reply-preview-container"></div>
         <div class="input-area">
             <form id="message-form">
                 <div class="input-group">
