@@ -26,8 +26,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateSessionHistory() {
-        // Session history is hidden from UI - only used for download functionality
-        // No need to update the display since it should always be hidden
+        if (transcript.length > 0) {
+            sessionHistory.style.display = '';
+            sessionHistory.innerHTML = transcript.map(line => `<div>${line}</div>`).join('');
+        } else {
+            sessionHistory.style.display = 'none';
+        }
     }
 
     async function handleSubmit(e) {
