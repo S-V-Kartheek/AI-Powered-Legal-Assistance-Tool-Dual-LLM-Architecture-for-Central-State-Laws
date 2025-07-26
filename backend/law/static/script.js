@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateSessionHistory() {
         if (transcript.length > 0) {
             sessionHistory.style.display = '';
-            sessionHistory.innerHTML = transcript.map(line => `<div>${line}</div>`).join('');
+            // sessionHistory.innerHTML = transcript.map(line => `<div>${line}</div>`).join('');
         } else {
             sessionHistory.style.display = 'none';
         }
