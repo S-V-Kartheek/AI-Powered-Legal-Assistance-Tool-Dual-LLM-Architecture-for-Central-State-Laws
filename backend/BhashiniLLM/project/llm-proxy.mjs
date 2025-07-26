@@ -20,12 +20,27 @@ const PORT = process.env.PORT || 5001;
 const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
 const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GOOGLE_API_KEY}`;
 
+// Validate required environment variables
+if (!GOOGLE_API_KEY) {
+  console.warn('Warning: GOOGLE_API_KEY is not set. LLM functionality will not work.');
+}
+
 app.use(cors());
 app.use(bodyParser.json({ limit: '2mb' }));
 
-// Add this after you create your Express app (e.g., after `const app = express();`)
+// Health check endpoint
 app.get('/', (req, res) => {
-  res.send('BhashiniLLM backend is running!');
+  res.json({ 
+    status: 'ok', 
+    message: 'BhashiniLLM backend is running!',
+    timestamp: new Date().toISOString(),
+    port: PORT
+  });
+});
+
+// Health check for Render
+app.get('/health', (req, res) => {
+  res.json({ status: 'healthy' });
 });
 
 app.post('/llm', async (req, res) => {
@@ -65,6 +80,12 @@ app.post('/api/tts', async (req, res) => {
   if (!text || !targetLanguage || !ttsServiceId) {
     return res.status(400).json({ error: 'Missing text, targetLanguage, or ttsServiceId' });
   }
+  
+  // Check if INFERENCEAPIKEY is set
+  if (!process.env.INFERENCEAPIKEY) {
+    return res.status(500).json({ error: 'TTS API key not configured. Please set INFERENCEAPIKEY environment variable.' });
+  }
+  
   try {
     const audioBase64 = await testBhashiniTTS(text, targetLanguage, ttsServiceId, gender);
     if (!audioBase64) {
@@ -72,7 +93,7 @@ app.post('/api/tts', async (req, res) => {
     }
     // Save audio to file in the fixed path
     const filename = `audio_${Date.now()}.wav`;
-  const audioDir = path.join(__dirname, 'audio');
+    const audioDir = path.join(__dirname, 'audio');
     if (!fs.existsSync(audioDir)) {
       fs.mkdirSync(audioDir, { recursive: true });
     }
@@ -88,18 +109,29 @@ app.post('/api/tts', async (req, res) => {
 // Serve audio files statically
 app.use('/audio', express.static(path.join(__dirname, 'audio')));
 
-
 // Serve frontend build statically
 app.use(express.static(path.join(__dirname, 'dist')));
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`LLM/TTS proxy server running on port ${PORT}`);
+}).on('error', (err) => {
+  if (err.code === 'EADDRINUSE') {
+    console.error(`Port ${PORT} is already in use. Please try a different port.`);
+    console.error('You can set a different port using the PORT environment variable.');
+    process.exit(1);
+  } else {
+    console.error('Server error:', err);
+    process.exit(1);
+  }
 });
-// ... existing code ...
 
-app.listen(PORT, () => {
-  console.log(`LLM/TTS proxy server running on port ${PORT}`);
+// Graceful shutdown
+process.on('SIGTERM', () => {
+  console.log('SIGTERM received, shutting down gracefully');
+  server.close(() => {
+    console.log('Process terminated');
+  });
 }); 
