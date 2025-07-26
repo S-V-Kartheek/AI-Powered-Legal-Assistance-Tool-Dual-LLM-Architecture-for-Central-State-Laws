@@ -109,10 +109,30 @@ app.post('/api/tts', async (req, res) => {
 // Serve audio files statically
 app.use('/audio', express.static(path.join(__dirname, 'audio')));
 
+// Check if dist folder exists
+const distPath = path.join(__dirname, 'dist');
+const indexPath = path.join(distPath, 'index.html');
+
+console.log('Dist folder path:', distPath);
+console.log('Index file path:', indexPath);
+console.log('Dist folder exists:', fs.existsSync(distPath));
+console.log('Index file exists:', fs.existsSync(indexPath));
+
 // Serve frontend build statically
-app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(distPath));
+
+// Catch-all route for SPA (must be last)
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+  if (fs.existsSync(indexPath)) {
+    res.sendFile(indexPath);
+  } else {
+    res.status(404).json({ 
+      error: 'Frontend not built', 
+      message: 'Please run npm run build first',
+      distPath,
+      indexPath
+    });
+  }
 });
 
 const server = app.listen(PORT, () => {
