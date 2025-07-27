@@ -6,6 +6,8 @@ import SignIn from './SignIn';
 import SignUp from './SignUp';
 import { useAuth } from '../context/AuthContext';
 
+ 
+
 // Modal component - basic implementation
 const Modal = ({ children, show, onClose }) => {
   if (!show) {
@@ -76,6 +78,13 @@ function Home() {
             </div>
             )}
 
+            const chatUrl = import.meta.env.VITE_CHAT_API_URL;
+            const projectUrl = import.meta.env.VITE_PROJECT_API_URL;
+            const lawUrl = import.meta.env.VITE_LAW_API_URL;
+            const stegoUrl = import.meta.env.VITE_STEGO_API_URL;
+            const bhashiniUrl = import.meta.env.VITE_BHASHINI_API_URL;
+            const loginUrl = import.meta.env.VITE_LOGIN_API_URL;
+
             {/* Show user info and navigation if logged in */}
             {user && (
               <div className="flex flex-col gap-4">
@@ -90,7 +99,7 @@ function Home() {
                   Therapy Session
                   </Link>
                   <a
-                    href="http://localhost:8000/"
+                    href="lawUrl"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="animated-btn px-6 py-3 bg-gradient-to-r from-violet-500 to-fuchsia-500 text-lg text-white rounded-lg shadow-md font-semibold"
@@ -98,7 +107,7 @@ function Home() {
                     Legal Assistant
                   </a>
                   <a
-                    href="http://localhost:5176/"
+                    href="projectUrl"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="animated-btn px-6 py-3 bg-gradient-to-r from-teal-500 to-emerald-400 text-lg text-white rounded-lg shadow-md font-semibold"
@@ -106,7 +115,7 @@ function Home() {
                     Police Portal
                   </a>
                   <a
-                    href="http://localhost:9000/"
+                    href="bhashiniUrl"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="animated-btn px-6 py-3 bg-gradient-to-r from-fuchsia-500 to-pink-500 text-lg text-white rounded-lg shadow-md font-semibold"
