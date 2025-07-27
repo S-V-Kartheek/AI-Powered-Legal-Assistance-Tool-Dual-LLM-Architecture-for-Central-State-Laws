@@ -94,7 +94,7 @@ function Home() {
                   Therapy Session
                   </Link>
                   <a
-                    href="VITE_LAW_API_URL"
+                    href="https://law-backend-sfjs.onrender.com/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="animated-btn px-6 py-3 bg-gradient-to-r from-violet-500 to-fuchsia-500 text-lg text-white rounded-lg shadow-md font-semibold"
@@ -102,7 +102,7 @@ function Home() {
                     Legal Assistant
                   </a>
                   <a
-                    href="VITE_PROJECT_API_URL"
+                    href="https://project-backend-p73p.onrender.com/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="animated-btn px-6 py-3 bg-gradient-to-r from-teal-500 to-emerald-400 text-lg text-white rounded-lg shadow-md font-semibold"
@@ -110,7 +110,7 @@ function Home() {
                     Police Portal
                   </a>
                   <a
-                    href="VITE_BHASHINI_API_URL"
+                    href="https://bhashinillm-backend.onrender.com/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="animated-btn px-6 py-3 bg-gradient-to-r from-fuchsia-500 to-pink-500 text-lg text-white rounded-lg shadow-md font-semibold"
