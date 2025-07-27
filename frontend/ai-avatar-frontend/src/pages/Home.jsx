@@ -94,7 +94,7 @@ function Home() {
                   Therapy Session
                   </Link>
                   <a
-                    href="lawUrl"
+                    href="VITE_LAW_API_URL"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="animated-btn px-6 py-3 bg-gradient-to-r from-violet-500 to-fuchsia-500 text-lg text-white rounded-lg shadow-md font-semibold"
@@ -102,7 +102,7 @@ function Home() {
                     Legal Assistant
                   </a>
                   <a
-                    href="projectUrl"
+                    href="VITE_PROJECT_API_URL"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="animated-btn px-6 py-3 bg-gradient-to-r from-teal-500 to-emerald-400 text-lg text-white rounded-lg shadow-md font-semibold"
@@ -110,7 +110,7 @@ function Home() {
                     Police Portal
                   </a>
                   <a
-                    href="bhashiniUrl"
+                    href="VITE_BHASHINI_API_URL"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="animated-btn px-6 py-3 bg-gradient-to-r from-fuchsia-500 to-pink-500 text-lg text-white rounded-lg shadow-md font-semibold"
