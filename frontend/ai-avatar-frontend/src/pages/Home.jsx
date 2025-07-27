@@ -78,12 +78,7 @@ function Home() {
             </div>
             )}
 
-            const chatUrl = import.meta.env.VITE_CHAT_API_URL;
-            const projectUrl = import.meta.env.VITE_PROJECT_API_URL;
-            const lawUrl = import.meta.env.VITE_LAW_API_URL;
-            const stegoUrl = import.meta.env.VITE_STEGO_API_URL;
-            const bhashiniUrl = import.meta.env.VITE_BHASHINI_API_URL;
-            const loginUrl = import.meta.env.VITE_LOGIN_API_URL;
+          
 
             {/* Show user info and navigation if logged in */}
             {user && (
