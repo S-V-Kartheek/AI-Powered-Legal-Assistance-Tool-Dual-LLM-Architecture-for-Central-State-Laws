@@ -12,29 +12,25 @@
       <a href="/" class="font-bold text-2xl tracking-wide hover:text-blue-500 transition-colors duration-200">
         KavalAi-<span class="text-blue-700">DLLM</span>
       </a>
- const chatUrl = import.meta.env.VITE_CHAT_API_URL;
-  const projectUrl = import.meta.env.VITE_PROJECT_API_URL;
-  const lawUrl = import.meta.env.VITE_LAW_API_URL;
-  const stegoUrl = import.meta.env.VITE_STEGO_API_URL;
-  const bhashiniUrl = import.meta.env.VITE_BHASHINI_API_URL;
-  const loginUrl = import.meta.env.VITE_LOGIN_API_URL;
+
       <div class="flex items-center justify-center gap-10 font-medium text-gray-600">
         <a href="/" class="hover:text-blue-700 transition-colors duration-200">Home</a>
         {% if user and user.role == 'police' %}
           <a href="http://localhost:5174" class="hover:text-blue-700 transition-colors duration-200">Home</a>
-          <a url=chatUrl class="hover:text-blue-700 transition-colors duration-200">Help from Higher Official</a>
-          <a href="http://localhost:8000" class="hover:text-blue-700 transition-colors duration-200">FIR Assistant</a>
-          <a href="http://localhost:5176" class="hover:text-blue-700 transition-colors duration-200">Police Portal</a>
-          <a href="http://localhost:3002" class="hover:text-blue-700 transition-colors duration-200">Send Evidence</a>
+          <a href="https://chatroom-nkdd.onrender.com" class="hover:text-blue-700 transition-colors duration-200">Help from Higher Official</a>
+          <a href="https://law-backend-sfjs.onrender.com/" class="hover:text-blue-700 transition-colors duration-200">FIR Assistant</a>
+          <a href="https://project-backend-p73p.onrender.com" class="hover:text-blue-700 transition-colors duration-200">Police Portal</a>
+          <a href="https://ai-powered-legal-assistance-tool-dual-70lt.onrender.com" class="hover:text-blue-700 transition-colors duration-200">Send Evidence</a>
           <a href="http://localhost:5174/therapy-bot" class="hover:text-blue-700 transition-colors duration-200">Therapy Session</a>
-          <a href="http://localhost:9000/" class="hover:text-blue-700 transition-colors duration-200">multilingual Assistance</a>
+          <a href="https://bhashinillm-backend.onrender.com" class="hover:text-blue-700 transition-colors duration-200">multilingual Assistance</a>
         {% else %}
          <a href="http://localhost:5174" class="hover:text-blue-700 transition-colors duration-200">Home</a>
-         <a href="http://localhost:5003" class="hover:text-blue-700 transition-colors duration-200">Help from Higher Official</a>
+         <a href="https://chatroom-nkdd.onrender.com" class="hover:text-blue-700 transition-colors duration-200">know My case</a>
           <a href="http://localhost:5174/therapy-bot" class="hover:text-blue-700 transition-colors duration-200">Therapy Session</a>
-          <a href="http://localhost:3002" class="hover:text-blue-700 transition-colors duration-200">Send Evidence</a>
-          <a href="http://localhost:5176/" class="hover:text-blue-700 transition-colors duration-200">Police Portal</a>
-          <a href="http://localhost:9000/" class="hover:text-blue-700 transition-colors duration-200">MultiLingual Assistant</a>
+            <a href="https://chatroom-nkdd.onrender.com" class="hover:text-blue-700 transition-colors duration-200">Chat</a>
+          <a href="https://ai-powered-legal-assistance-tool-dual-70lt.onrender.com" class="hover:text-blue-700 transition-colors duration-200">Send Evidence</a>
+          <a href="https://project-backend-p73p.onrender.com" class="hover:text-blue-700 transition-colors duration-200">Police Portal</a>
+          <a href="https://bhashinillm-backend.onrender.com" class="hover:text-blue-700 transition-colors duration-200">MultiLingual Assistant</a>
         {% endif %}
       </div>
     </nav>
