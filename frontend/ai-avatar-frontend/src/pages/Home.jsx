@@ -134,9 +134,14 @@ function Home() {
             {/* Show user info and navigation if logged in */}
             {user && (
               <div className="flex flex-col gap-4 mt-6">
-                <p className="text-lg text-gray-700">
-                  Welcome back, <span className="font-semibold text-blue-700">{user.name}</span>!
+                  <p className="text-lg text-gray-700">
+                  {user.role === 'police' ? (
+                    <>Welcome, <span className="font-semibold text-blue-700">{user.name}</span>!</>
+                  ) : (
+                    <>Welcome <span className="font-semibold text-blue-700">Citizen of India</span>!</>
+                  )}
                 </p>
+
                 <div className="flex items-center gap-4 flex-wrap">
                   {user.role === 'police' ? (
                     // Police user buttons
