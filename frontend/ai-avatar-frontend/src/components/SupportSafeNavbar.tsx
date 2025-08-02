@@ -149,7 +149,7 @@ function SupportSafeNavbar(props) {
                 to="/signup"
                 className="supportsafe-nav-link px-4 py-2 rounded-lg bg-green-50 hover:bg-green-100 text-green-700 font-semibold transition-colors duration-200"
               >
-                ✨ Sign Up
+                ✨ Create Account
               </Link>
             </>
           )}
