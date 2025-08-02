@@ -56,7 +56,7 @@ function SupportSafeNavbar(props) {
       { name: 'Home', path: '/', icon: '🏠', external: false },
       { name: 'Community Help', url: chatUrl, icon: '💬', external: true },
       { name: 'Know My Case', url: lawUrl, icon: '⚖️', external: true },
-      { name: 'Police service portal', url: projectUrl, icon: '📊', external: true },
+      { name: 'Register FIR', url: projectUrl, icon: '📊', external: true },
       { name: 'Stego Bot', url: stegoUrl, icon: '🔐', external: true },
       { name: 'Therapy Bot', path: '/therapy-bot', icon: '🧠', external: false },
       { name: 'Your Advisor (Local Language)', url: bhashiniUrl, icon: '🌍', external: true },
