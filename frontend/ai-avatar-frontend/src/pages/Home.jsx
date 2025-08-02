@@ -84,15 +84,21 @@ function Home() {
             {user && (
               <div className="flex flex-col gap-4">
                 <p className="text-lg text-gray-700">
-                  Welcome back, <span className="font-semibold text-blue-700">{user.name}</span>!
+                  {user.role === 'police' ? (
+                    <>Welcome, <span className="font-semibold text-blue-700">{user.name}</span>!</>
+                  ) : (
+                    <>Welcome <span className="font-semibold text-blue-700">Citizen of India</span>!</>
+                  )}
                 </p>
                 <div className="flex items-center gap-4">
-                  <Link
-                    to="/therapy-bot"
+                  <a
+                    href="https://ai-powered-legal-assistance-tool-dual-70lt.onrender.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="animated-btn px-6 py-3 bg-gradient-to-r from-orange-400 to-amber-500 text-lg text-white rounded-lg shadow-md font-semibold"
-                  >
-                  Therapy Session
-                  </Link>
+                    >
+                    Send Evidence
+                  </a>
                   <a
                     href="https://law-backend-sfjs.onrender.com/"
                     target="_blank"
