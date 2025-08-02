@@ -153,7 +153,7 @@ function Home() {
                         to="/therapy-bot"
                         className="animated-btn px-6 py-3 bg-gradient-to-r from-orange-400 to-amber-500 text-lg text-white rounded-lg shadow-md font-semibold"
                       >
-                        Therapy Session
+                        Therapy Assistant
                       </Link>
                       <a
                         href="https://law-backend-sfjs.onrender.com/"
@@ -195,7 +195,7 @@ function Home() {
                         to="/therapy-bot"
                         className="animated-btn px-6 py-3 bg-gradient-to-r from-orange-400 to-amber-500 text-lg text-white rounded-lg shadow-md font-semibold"
                       >
-                        Therapy Session
+                        Therapy Assistant
                       </Link>
                       <a
                         href="https://law-backend-sfjs.onrender.com/"
