@@ -238,7 +238,7 @@ function SupportSafeNavbar(props) {
                     className="block px-4 py-2 rounded-lg bg-green-50 hover:bg-green-100 text-green-700 font-semibold transition-colors duration-200"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    ✨ Sign Up
+                    ✨ Create Account
                   </Link>
                 </div>
               )}
