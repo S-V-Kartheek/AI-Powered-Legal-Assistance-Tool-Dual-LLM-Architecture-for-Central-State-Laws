@@ -28,23 +28,37 @@ function SupportSafeNavbar(props) {
   const stegoUrl = import.meta.env.VITE_STEGO_API_URL;
   const bhashiniUrl = import.meta.env.VITE_BHASHINI_API_URL;
   const loginUrl = import.meta.env.VITE_LOGIN_API_URL;
-  let navItems: NavItem[] = [
-    { name: 'Home', url: '/', icon: '🏠', external: false },
-    { name: 'Community Help', url: chatUrl, icon: '💬', external: true },
-    { name: 'Know My Case', url: lawUrl, icon: '⚖️', external: true },
-    { name: 'Police service portal', url: projectUrl, icon: '📊', external: true },
-    { name: 'Stego Bot', url: stegoUrl, icon: '🔐', external: true },
-    { name: 'Therapy Bot', url: '/therapy-bot', icon: '🧠', external: false },
-    { name: 'Your Advisor (Local Language)', url: bhashiniUrl, icon: '🌍', external: true },
-  ];
-  if (user && user.role === 'police') {
+  let navItems: NavItem[] = [];
+  
+  if (!user) {
+    // Navigation for non-authenticated users
     navItems = [
-      { name: 'Home', url: '/', icon: '🏠', external: false },
+      { name: 'Home', path: '/', icon: '🏠', external: false },
+      { name: 'Community Help', url: chatUrl, icon: '💬', external: true },
+      { name: 'Therapy Bot', path: '/therapy-bot', icon: '🧠', external: false },
+      { name: 'Your Advisor', url: bhashiniUrl, icon: '🌍', external: true },
+      { name: 'Police Portal', url: projectUrl, icon: '📊', external: true },
+    ];
+  } else if (user.role === 'police') {
+    // Navigation for police users
+    navItems = [
+      { name: 'Home', path: '/', icon: '🏠', external: false },
       { name: 'Help from Higher Official', url: chatUrl, icon: '💬', external: true },
       { name: 'FIR Assistant', url: lawUrl, icon: '⚖️', external: true },
       { name: 'Police Assistant', url: projectUrl, icon: '📊', external: true },
       { name: 'Send Evidence', url: stegoUrl, icon: '🔐', external: true },
-      { name: 'Therapy Bot', url: '/therapy-bot', icon: '🧠', external: false },
+      { name: 'Therapy Bot', path: '/therapy-bot', icon: '🧠', external: false },
+      { name: 'Your Advisor (Local Language)', url: bhashiniUrl, icon: '🌍', external: true },
+    ];
+  } else {
+    // Navigation for regular citizens
+    navItems = [
+      { name: 'Home', path: '/', icon: '🏠', external: false },
+      { name: 'Community Help', url: chatUrl, icon: '💬', external: true },
+      { name: 'Know My Case', url: lawUrl, icon: '⚖️', external: true },
+      { name: 'Police service portal', url: projectUrl, icon: '📊', external: true },
+      { name: 'Stego Bot', url: stegoUrl, icon: '🔐', external: true },
+      { name: 'Therapy Bot', path: '/therapy-bot', icon: '🧠', external: false },
       { name: 'Your Advisor (Local Language)', url: bhashiniUrl, icon: '🌍', external: true },
     ];
   }
@@ -57,6 +71,7 @@ function SupportSafeNavbar(props) {
     { name: 'Law Bot Service', url: lawUrl, icon: '⚖️' },
     { name: 'Your Advisor (Local Language)', url: bhashiniUrl, icon: '🧠'},
   ];
+
 
   const handleLogout = () => {
     logout();
