@@ -34,11 +34,11 @@ function SupportSafeNavbar(props) {
     // Navigation for non-authenticated users
     navItems = [
       { name: 'Home', path: '/', icon: '🏠', external: false },
-      { name: 'Community Help', url: chatUrl, icon: '💬', external: true },
-      { name: 'Therapy Bot', path: '/therapy-bot', icon: '🧠', external: false },
-      { name: 'Your Advisor', url: bhashiniUrl, icon: '🌍', external: true },
-      { name: 'Police Portal', url: projectUrl, icon: '📊', external: true },
-    ];
+       { name: 'Multilingual voice Assistant', url: bhashiniUrl, icon: '🌍', external: true },
+       { name: 'Law Bot', url: lawUrl, icon: '⚖️', external: true },
+      { name: 'Community Chat', url: chatUrl, icon: '💬', external: true },
+      { name: 'Therapy Assistant(3D)', path: '/therapy-bot', icon: '🧠', external: false },
+        ];
   } else if (user.role === 'police') {
     // Navigation for police users
     navItems = [
@@ -47,7 +47,7 @@ function SupportSafeNavbar(props) {
       { name: 'FIR Assistant', url: lawUrl, icon: '⚖️', external: true },
       { name: 'Police Assistant', url: projectUrl, icon: '📊', external: true },
       { name: 'Send Evidence', url: stegoUrl, icon: '🔐', external: true },
-      { name: 'Therapy Bot', path: '/therapy-bot', icon: '🧠', external: false },
+      { name: 'Therapy Assistant(3D)', path: '/therapy-bot', icon: '🧠', external: false },
       { name: 'Your Advisor (Local Language)', url: bhashiniUrl, icon: '🌍', external: true },
     ];
   } else {
@@ -58,7 +58,7 @@ function SupportSafeNavbar(props) {
       { name: 'Know My Case', url: lawUrl, icon: '⚖️', external: true },
       { name: 'Register FIR', url: projectUrl, icon: '📊', external: true },
       { name: 'Stego Bot', url: stegoUrl, icon: '🔐', external: true },
-      { name: 'Therapy Bot', path: '/therapy-bot', icon: '🧠', external: false },
+      { name: 'Therapy Assistance(3D)', path: '/therapy-bot', icon: '🧠', external: false },
       { name: 'Your Advisor (Local Language)', url: bhashiniUrl, icon: '🌍', external: true },
     ];
   }
